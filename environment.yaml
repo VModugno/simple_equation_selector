@@ -1,0 +1,13 @@
+name: simple_eq
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9 
+  - opencv
+  - pdfminer
+  - pip
+  - pip:
+    - Pillow --verbose
+    - pix2tex[api] --verbose
+    - PyMuPDF --verbose
