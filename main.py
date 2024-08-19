@@ -5,7 +5,8 @@ import os
 import uuid
 import json
 from PIL import Image
-from pix2tex.cli import LatexOCR
+#from pix2tex.cli import LatexOCR
+from simple_latex_ocr.models import Latex_OCR
 
 ### managing class
 class TexEqManager:
@@ -197,20 +198,20 @@ class TexEqManager:
             return
 
         # Initialize the model only once here
-        model = LatexOCR()
+        model = Latex_OCR()
 
         with open(results_path, 'w') as results_file:
             for filename in os.listdir(roi_folder):
                 if filename.endswith('.png'):
                     file_path = os.path.join(roi_folder, filename)
-                    img = Image.open(file_path)
+                    #img = Image.open(file_path)
 
                     # Process the image to get LaTeX
-                    latex_result = model(img)
-                    print(f"Processing {filename}: {latex_result}")
+                    latex_result = model.predict(file_path)
+                    print(f"Processing {filename}: {latex_result['formula']}, confidence: {latex_result['confidence']}")
 
                     # Save the filename and corresponding LaTeX code
-                    results_file.write(f"{filename}: {latex_result}\n")
+                    results_file.write(f"{filename}: {latex_result['formula']}\n")
                 else:
                     print("at the moment only png files are supported")
                     print(f"Skipping non-PNG file: {filename}")

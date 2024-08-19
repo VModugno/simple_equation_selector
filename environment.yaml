@@ -11,3 +11,4 @@ dependencies:
     - Pillow --verbose
     - pix2tex[api] --verbose
     - PyMuPDF --verbose
+    - simple_latex_ocr -- verbose
