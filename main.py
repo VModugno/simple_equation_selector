@@ -260,12 +260,25 @@ pdf_path = "C:\\Users\\valer\\Desktop\\ML_for_robotics\\week1\\first_chapter.pdf
 texeq = TexEqManager(pdf_path, 4.0)
 
 # Create an empty black image
-image = np.zeros((500, 500, 3), dtype="uint8")
+#image = np.zeros((500, 500, 3), dtype="uint8")
+image = cv2.imread('main_image.png')
+
+# Scaling factors
+fx = 1.0  # 100% of the original size in width
+fy = 1.0  # 100% of the original size in height
+
+# Resize the image
+resized_image = cv2.resize(image, None, fx=fx, fy=fy, interpolation=cv2.INTER_AREA)
+# create window
+window_name = "Interactive Image"
+cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
 
 # Display the image
-cv2.imshow("Interactive Image", image)
+cv2.imshow("Interactive Image", resized_image)
 
-
+print("Press 1 to split the PDF")
+print("Press 2 to select equations")
+print("Press 3 to process ROIs to LaTeX")
 while True:
     # Display the image window and wait for a key press
     key = cv2.waitKey(0)
